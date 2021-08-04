@@ -5,6 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(PlayerController))]
 public class PlayerAnimatorController : MonoBehaviour
 {
     public float runVelocityThreshold = 0.1f;
@@ -12,6 +13,7 @@ public class PlayerAnimatorController : MonoBehaviour
     Animator animator;
     Rigidbody2D rb2d;
     SpriteRenderer renderer;
+    PlayerController controller;
 
     // Start is called before the first frame update
     void Start()
@@ -19,6 +21,7 @@ public class PlayerAnimatorController : MonoBehaviour
         animator = GetComponent<Animator>(); 
         rb2d = GetComponent<Rigidbody2D>(); 
         renderer = GetComponent<SpriteRenderer>(); 
+        controller = GetComponent<PlayerController>(); 
     }
 
     // Update is called once per frame
@@ -30,5 +33,13 @@ public class PlayerAnimatorController : MonoBehaviour
         {
             renderer.flipX = rb2d.velocity.x < 0;
         }
+    }
+
+    void FixedUpdate() {
+        animator.SetBool("onGround", controller.isOnGround());
+    }
+
+    public void SetJumpTrigger() {
+        animator.SetTrigger("jump");
     }
 }
