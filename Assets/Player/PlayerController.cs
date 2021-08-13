@@ -1,24 +1,30 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 [RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(SpriteRenderer))]
 public class PlayerController : MonoBehaviour
 {
+    [Header("Movement")]
     public float runAcceleration = 1;
     public float maxRunSpeed = 1;
-    public float jumpPower = 1;
     public float distToGround = 2;
-    public UnityEvent onJump;
+    public float jumpPower = 10;
+    [Header("Animation")]
+    public Animator playerAnimator;
+    public float minAnimationRunVelocity = 1;
 
     float horizontal = 0;
     bool jump = false;
 
-    Rigidbody2D _rb;
+    Rigidbody2D rb;
+    SpriteRenderer spriteRenderer;
 
-    void Start() {
-        _rb = GetComponent<Rigidbody2D>();
+    void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     void Update()
@@ -27,19 +33,36 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey("space")) jump = true;
     }
 
-    void FixedUpdate() {
-        float newX = Mathf.Clamp(_rb.velocity.x + runAcceleration * Time.deltaTime * horizontal, - maxRunSpeed, maxRunSpeed);
-        float newY = _rb.velocity.y;
-        if (jump) {
-            jump = false;
-            if (isOnGround())
-            {newY = jumpPower;
-            onJump.Invoke();};
-        }
-        _rb.velocity = new Vector2(newX, newY);
+    void FixedUpdate()
+    {
+        UpdateRB();
+        UpdateAnimator();
     }
 
-    public bool isOnGround() {
+    void UpdateRB()
+    {
+        float newX = Mathf.Clamp(rb.velocity.x + runAcceleration * Time.deltaTime * horizontal, -maxRunSpeed, maxRunSpeed);
+        float newY = rb.velocity.y;
+        if (jump)
+        {
+            jump = false;
+            if (isOnGround()) newY = jumpPower;
+        }
+        rb.velocity = new Vector2(newX, newY);
+    }
+
+    void UpdateAnimator()
+    {
+        bool isRunning = Mathf.Abs(rb.velocity.x) > minAnimationRunVelocity;
+        playerAnimator.SetBool("isRunning", isRunning);
+
+        if (isRunning) {
+            spriteRenderer.flipX = rb.velocity.x < 0;
+        }
+    }
+
+    public bool isOnGround()
+    {
         return Physics2D.Raycast(transform.position, -Vector3.up, distToGround + 0.1f);
     }
 }
