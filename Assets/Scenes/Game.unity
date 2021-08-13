@@ -5621,6 +5621,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 695512247, guid: 0e1bbc0e86b4b00469721e08194f229b, type: 3}
+      propertyPath: m_Constraints
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 695512247, guid: 0e1bbc0e86b4b00469721e08194f229b, type: 3}
       propertyPath: m_GravityScale
       value: 1
       objectReference: {fileID: 0}
