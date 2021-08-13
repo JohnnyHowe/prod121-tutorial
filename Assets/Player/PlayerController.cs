@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     public float jumpPower = 10;
     [Header("Animation")]
     public Animator playerAnimator;
-    public float minAnimationRunVelocity = 1;
+    // public float minAnimationRunVelocity = 1;
 
     float horizontal = 0;
     bool jump = false;
@@ -53,7 +53,8 @@ public class PlayerController : MonoBehaviour
 
     void UpdateAnimator()
     {
-        bool isRunning = Mathf.Abs(rb.velocity.x) > minAnimationRunVelocity;
+        // bool isRunning = Mathf.Abs(rb.velocity.x) > minAnimationRunVelocity;
+        bool isRunning = Mathf.Abs(horizontal) > 0;
         playerAnimator.SetBool("isRunning", isRunning);
 
         if (isRunning) {

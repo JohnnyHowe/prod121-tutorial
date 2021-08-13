@@ -176,6 +176,7 @@ GameObject:
   - component: {fileID: 519420032}
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
+  - component: {fileID: 519420030}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -191,6 +192,20 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_Enabled: 1
+--- !u!114 &519420030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61bb47095e247814bbc5d64c15503413, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dampTime: 0.15
+  target: {fileID: 695512249}
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -248,12 +263,40 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &695512243 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2971218326512245148, guid: 0e1bbc0e86b4b00469721e08194f229b,
+    type: 3}
+  m_PrefabInstance: {fileID: 2971218326087284015}
+  m_PrefabAsset: {fileID: 0}
 --- !u!95 &695512247 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 2971218326512245147, guid: 0e1bbc0e86b4b00469721e08194f229b,
     type: 3}
   m_PrefabInstance: {fileID: 2971218326087284015}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &695512249 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2971218326512245145, guid: 0e1bbc0e86b4b00469721e08194f229b,
+    type: 3}
+  m_PrefabInstance: {fileID: 2971218326087284015}
+  m_PrefabAsset: {fileID: 0}
+--- !u!58 &695512250
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 695512243}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.14434704}
+  serializedVersion: 2
+  m_Radius: 0.09252052
 --- !u!1001 &1784732252
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5627,6 +5670,22 @@ PrefabInstance:
     - target: {fileID: 695512247, guid: 0e1bbc0e86b4b00469721e08194f229b, type: 3}
       propertyPath: m_GravityScale
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 695512248, guid: 0e1bbc0e86b4b00469721e08194f229b, type: 3}
+      propertyPath: m_Size.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 695512248, guid: 0e1bbc0e86b4b00469721e08194f229b, type: 3}
+      propertyPath: m_Size.y
+      value: 0.24379238
+      objectReference: {fileID: 0}
+    - target: {fileID: 695512248, guid: 0e1bbc0e86b4b00469721e08194f229b, type: 3}
+      propertyPath: m_Offset.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 695512248, guid: 0e1bbc0e86b4b00469721e08194f229b, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.023307025
       objectReference: {fileID: 0}
     - target: {fileID: 2971218326512245145, guid: 0e1bbc0e86b4b00469721e08194f229b,
         type: 3}
