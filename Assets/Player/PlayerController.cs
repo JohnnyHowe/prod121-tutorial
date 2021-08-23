@@ -11,20 +11,18 @@ public class PlayerController : MonoBehaviour
     public float maxRunSpeed = 1;
     public float distToGround = 0.1f;
     public float jumpPower = 10;
+    public LayerMask groundLayer;
     [Header("Animation")]
     public Animator playerAnimator;
-    // public float minAnimationRunVelocity = 1;
 
     float horizontal = 0;
     bool jump = false;
 
     Rigidbody2D rb;
-    // SpriteRenderer spriteRenderer;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        // spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     void Update()
@@ -37,12 +35,11 @@ public class PlayerController : MonoBehaviour
     {
         UpdateRB();
         UpdateAnimator();
-        // Debug.Log(isOnGround());
     }
 
     void UpdateRB()
     {
-        float newX = Mathf.Clamp(rb.velocity.x + runAcceleration * Time.deltaTime * horizontal, -maxRunSpeed, maxRunSpeed);
+        float newX = Mathf.Clamp(rb.velocity.x + runAcceleration * Time.fixedDeltaTime * horizontal, -maxRunSpeed, maxRunSpeed);
         float newY = rb.velocity.y;
         if (jump)
         {
@@ -54,19 +51,17 @@ public class PlayerController : MonoBehaviour
 
     void UpdateAnimator()
     {
-        // bool isRunning = Mathf.Abs(rb.velocity.x) > minAnimationRunVelocity;
         bool isRunning = Mathf.Abs(horizontal) > 0;
         playerAnimator.SetBool("isRunning", isRunning);
 
-        if (isRunning) {
-            // spriteRenderer.flipX = rb.velocity.x < 0;
+        if (isRunning)
+        {
             transform.localScale = new Vector3(Mathf.Sign(horizontal) * Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
         }
     }
 
     public bool isOnGround()
     {
-        // return Physics2D.Raycast(transform.position, -Vector3.up, distToGround);
-        return true;    // TODO
+        return Physics2D.Raycast(transform.position, Vector2.down, distToGround, groundLayer).collider != null;
     }
 }
