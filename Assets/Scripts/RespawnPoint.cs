@@ -10,6 +10,7 @@ public class RespawnPoint : MonoBehaviour
     {
         if (other.gameObject.name == "Player") {
             other.gameObject.transform.position = respawnPoint.position;
+            other.gameObject.GetComponent<PlayerController>().Hurt();
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(SpriteRenderer))]
@@ -14,7 +15,9 @@ public class PlayerController : MonoBehaviour
     public LayerMask groundLayer;
     [Header("Animation")]
     public Animator playerAnimator;
+    public Image[] hearts;
 
+    int health = 0;
     float horizontal = 0;
     bool jump = false;
 
@@ -22,6 +25,8 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        health = 3;
+        UpdateHearts();
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -57,6 +62,20 @@ public class PlayerController : MonoBehaviour
         if (isRunning)
         {
             transform.localScale = new Vector3(Mathf.Sign(horizontal) * Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+        }
+    }
+
+    public void Hurt() {
+        health -= 1;
+        UpdateHearts();
+        if (health < 0) {
+            Debug.Log("GameOver");
+        }
+    }
+
+    void UpdateHearts() {
+        for (int i = 0; i < 3; i ++) {
+            hearts[i].gameObject.SetActive(i < health);
         }
     }
 

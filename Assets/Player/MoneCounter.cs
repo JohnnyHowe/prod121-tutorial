@@ -18,7 +18,6 @@ public class MoneCounter : MonoBehaviour
         if (other.gameObject.tag == "Mone" && !destroyedThisFrame) {
             destroyedThisFrame = true;
             mone ++;
-            Debug.Log("Mone: " + mone);
             Destroy(other.gameObject);
             moneyText.text = mone.ToString();
         } 
