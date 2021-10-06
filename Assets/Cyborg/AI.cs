@@ -38,7 +38,6 @@ public class AI : MonoBehaviour
 
     IEnumerator ExecuteState()
     {
-        Debug.Log(currentState);
         currentState = (State)Random.Range(0, 3);
         switch (currentState)
         {
@@ -60,15 +59,15 @@ public class AI : MonoBehaviour
         doneCurrent = false;
 
         anim.SetBool("isRunning", true);
-        float partolTime = 0;
+        float partolTime = Random.Range(1, 5);
 
         rend.flipX = direction < 0;
 
-        while (partolTime <= 3)
+        while (partolTime > 0)
         {
-            partolTime += Time.deltaTime;
+            partolTime -= Time.deltaTime;
             Vector3 r = transform.position + groundCheckOffset;
-            Vector3 dir = Vector2.down + Vector2.right * 0.5f  * direction;
+            Vector3 dir = Vector2.down + Vector2.right * 0.5f * direction;
             RaycastHit2D ray = Physics2D.Raycast(r, dir, 1f, LayerMask.GetMask("Jumpable"));
             if (!ray.collider)
             {
@@ -85,7 +84,15 @@ public class AI : MonoBehaviour
         doneCurrent = false;
         anim.SetBool("isRunning", false);
         rb.velocity = Vector2.zero;
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(Random.Range(1, 5));
         doneCurrent = true;
+    }
+
+    public void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.name == "Player")
+        {
+            other.gameObject.GetComponent<PlayerController>().Hurt();
+        }
     }
 }
