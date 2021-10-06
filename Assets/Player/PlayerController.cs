@@ -16,6 +16,11 @@ public class PlayerController : MonoBehaviour
     [Header("Animation")]
     public Animator playerAnimator;
     public Image[] hearts;
+    [Header("SFX")]
+    public AudioSource audioSource;
+    public AudioClip runSound;
+    public AudioClip jumpSound;
+    public AudioClip hitSound;
 
     int health = 0;
     float horizontal = 0;
@@ -49,7 +54,11 @@ public class PlayerController : MonoBehaviour
         if (jump)
         {
             jump = false;
-            if (isOnGround()) newY = jumpPower;
+            if (isOnGround()) {
+                newY = jumpPower;
+                audioSource.clip = jumpSound;
+                audioSource.Play();
+            }
         }
         rb.velocity = new Vector2(newX, newY);
     }
